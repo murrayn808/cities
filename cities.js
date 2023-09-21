@@ -1,3 +1,5 @@
+const _ = require('underscore');
+
 const cities = [
   { name: 'Urban Honolulu', population: 351554, island: 'Oahu' },
   { name: 'East Honolulu', population: 50076, island: 'Oahu' },
@@ -121,17 +123,8 @@ function biggestAndSmallest(data, island) {
     return 'No cities found on this island';
   }
 
-  let biggestCity = islandCities[0];
-  let smallestCity = islandCities[0];
-
-  for (let i = 1; i < islandCities.length; i++) {
-    if (islandCities[i].population > biggestCity.population) {
-      biggestCity = islandCities[i];
-    }
-    if (islandCities[i].population < smallestCity.population) {
-      smallestCity = islandCities[i];
-    }
-  }
+  const biggestCity = _.max(islandCities, city => city.population);
+  const smallestCity = _.min(islandCities, city => city.population);
 
   return `Biggest: ${biggestCity.name}; Smallest: ${smallestCity.name}`;
 }
