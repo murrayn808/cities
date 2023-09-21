@@ -100,3 +100,44 @@ const cities = [
   { name: 'Kualapuu', population: 2024, island: 'Maui' },
   { name: 'Princeville', population: 1969, island: 'Kauai' },
 ];
+
+// Function to calculate the average population for a given island
+function averagePopulation(data, island) {
+  const islandCities = data.filter(city => city.island === island);
+
+  if (islandCities.length === 0) {
+    return 0; // No cities found for the specified island, return 0 as the average population
+  }
+
+  const totalPopulation = islandCities.reduce((acc, city) => acc + city.population, 0);
+  return totalPopulation / islandCities.length;
+}
+
+// Function to find the biggest and smallest cities by population for a given island
+function biggestAndSmallest(data, island) {
+  const islandCities = data.filter(city => city.island === island);
+
+  if (islandCities.length === 0) {
+    return 'No cities found on this island';
+  }
+
+  let biggestCity = islandCities[0];
+  let smallestCity = islandCities[0];
+
+  for (let i = 1; i < islandCities.length; i++) {
+    if (islandCities[i].population > biggestCity.population) {
+      biggestCity = islandCities[i];
+    }
+    if (islandCities[i].population < smallestCity.population) {
+      smallestCity = islandCities[i];
+    }
+  }
+
+  return `Biggest: ${biggestCity.name}; Smallest: ${smallestCity.name}`;
+}
+
+// Example usage:
+console.log(averagePopulation(cities, 'Oahu'));     // prints: 112343.25
+console.log(biggestAndSmallest(cities, 'Oahu'));    // prints: Biggest: Urban Honolulu; Smallest: Kualapuu
+console.log(averagePopulation(cities, 'Maui'));     // prints: 13125.75
+console.log(biggestAndSmallest(cities, 'Maui'));    // prints: Biggest: Kahului; Smallest: Kualapuu
